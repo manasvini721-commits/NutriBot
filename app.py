@@ -90,7 +90,7 @@ def generate_exercise_plan(level):
 # -------------------------
 # Body Image Loader (absolute paths)
 # -------------------------
-   image_paths = {
+image_paths = {
     "Slim": "images/Slim.png.png",
     "Athletic": "images/Athletic.png.png",
     "Average": "images/Average.png.png",
