@@ -1,3 +1,7 @@
 streamlit
-numpy
+google-generativeai
 pillow
+requests
+protobuf
+numpy
+
