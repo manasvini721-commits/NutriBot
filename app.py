@@ -365,11 +365,11 @@ def generate_exercise_plan(level):
 
 # Body images
 image_paths = {
-    "Slim": r"C:\Users\ashok\OneDrive\Documents\NutriBot\images\Slim.png.png",
-    "Athletic": r"C:\Users\ashok\OneDrive\Documents\NutriBot\images\Athletic.png.png",
-    "Average": r"C:\Users\ashok\OneDrive\Documents\NutriBot\images\Average.png.png",
-    "Overweight": r"C:\Users\ashok\OneDrive\Documents\NutriBot\images\Overweight.png.png",
-    "Obese": r"C:\Users\ashok\OneDrive\Documents\NutriBot\images\Obese.png.png"
+    "Slim": "images/Slim.png.png",
+    "Athletic": "images/Athletic.png.png",
+    "Average": "images/Average.png.png",
+    "Overweight": "images/Overweight.png.png",
+    "Obese": "images/Obese.png.png"
 }
 
 def display_body_image(shape_name, label):
@@ -401,7 +401,7 @@ def ask_gemini(chat, prompt):
 if choice == "Home":
     st.markdown('<h1 class="title">NutriX: The Secret to Your Health</h1>', unsafe_allow_html=True)
     st.write("Welcome! Use the sidebar to explore Health Planner, Chat, Doctors, Diet Chat, and Help.")
-    st.image(r"C:\Users\ashok\OneDrive\Documents\NutriBot\images\health_banner.png", caption="Your Health, Our Priority", width="stretch")
+    st.image("images/health_banner.png", caption="Your Health, Our Priority", width="stretch")
 
 # -------------------------
 # HEALTH PLANNER PAGE
