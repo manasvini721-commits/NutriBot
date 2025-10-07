@@ -14,7 +14,7 @@ genai.configure(api_key=os.getenv("GEMINI_API_KEY"))
 # -------------------------
 # Page Config
 # -------------------------
- st.set_page_config(page_title="NutriX: The Secret to Your Health", layout="wide")
+st.set_page_config(page_title="NutriX: The Secret to Your Health", layout="wide")
 
 # -------------------------
 # Sidebar Navigation
