@@ -16,6 +16,14 @@ genai.configure(api_key=os.getenv("GEMINI_API_KEY"))
 # -------------------------
 st.set_page_config(page_title="NutriX: The Secret to Your Health", layout="wide")
 
+# Title + subtitle with Streamlit's signature purple color
+st.markdown("""
+    <div style="text-align: center;">
+        <h1 style="margin-bottom: 0; color: #9C27B0;">NutriX</h1>
+        <h3 style="margin-top: 0; color: #9C27B0;">The Secret to Your Health</h3>
+    </div>
+""", unsafe_allow_html=True)
+
 # -------------------------
 # Sidebar Navigation
 # -------------------------
