@@ -10,11 +10,19 @@ import google.generativeai as genai
 
 # Configure Gemini with your API key
 genai.configure(api_key=os.getenv("GEMINI_API_KEY"))
+def get_gemini_response(prompt):
+    try:
+        model = genai.GenerativeModel("gemini-2.5-flash")
+        response = model.generate_content(prompt)
+        return response.text
+    except Exception as e:
+        st.error(f"Error fetching Gemini response: {e}")
+        return None
 
 # -------------------------
 # Page Config
 # -------------------------
- st.set_page_config(page_title="NutriX: The Secret to Your Health", layout="wide")
+st.set_page_config(page_title="NutriX: The Secret to Your Health", layout="wide")
 
 # -------------------------
 # Sidebar Navigation
@@ -401,7 +409,7 @@ def ask_gemini(chat, prompt):
 if choice == "Home":
     st.markdown('<h1 class="title">NutriX: The Secret to Your Health</h1>', unsafe_allow_html=True)
     st.write("Welcome! Use the sidebar to explore Health Planner, Chat, Doctors, Diet Chat, and Help.")
-    st.image("images/health_banner.png", caption="Your Health, Our Priority", width="stretch")
+    st.image(r"C:\Users\ashok\OneDrive\Documents\NutriBot\images\health_banner.png.png", caption="Your Health, Our Priority")
 
 # -------------------------
 # HEALTH PLANNER PAGE
@@ -496,46 +504,59 @@ elif choice == "Health Planner":
 elif choice == "NutriX Chat":
     st.subheader("Chat with NutriX")
 
-    if "gemini_chat" not in st.session_state:
-        st.session_state.gemini_chat = create_gemini_chat()
+    # Initialize chat history
+    if "chat_history" not in st.session_state:
+        st.session_state.chat_history = []
 
- # Select health issue (optional)
+    # Optional: health issue selector
     issue = st.selectbox(
         "Select your health issue (optional, for personalized diet suggestions):",
         ["None", "Diabetes", "PCOS", "Weight Loss", "Weight Gain", "Thyroid", "General Wellness"]
     )
-    
-    # User query input
 
+    # User query input
     query = st.text_area("Ask anything about health, fitness, or nutrition:")
 
     if st.button("Send"):
         if query.strip():
-            # Construct GPT prompt with personalization
-            prompt = f"You are NutriX, a friendly health assistant. "
+            # Construct context-aware prompt
             meal_pref = st.session_state.get("meal_pref", "General")
             goal = st.session_state.get("goal", "Maintain")
             activity_level = st.session_state.get("activity_level", "Moderately Active")
-            prompt += f"The user prefers {meal_pref} meals, has the goal: {goal}, and activity level: {activity_level}. "
-            prompt += "You can answer general health questions, suggest diet and exercise plans. "
+
+            full_prompt = f"""
+            You are NutriX, a friendly and knowledgeable health assistant.
+            The user prefers {meal_pref} meals, has the goal: {goal}, and activity level: {activity_level}.
+            You provide evidence-based answers about health, nutrition, and wellness in a friendly tone.
+            """
+
             if issue != "None":
-                prompt += f"The user has the following issue: {issue}. Suggest foods to include, foods to avoid, and any adjustments to their diet plan accordingly. "
-            prompt += f"User question: {query}"
+                full_prompt += f"The user has {issue}. Provide safe diet and lifestyle advice accordingly.\n"
 
-            response = ask_gemini(st.session_state.gemini_chat, query)
-    if 'chat_history' not in st.session_state:
-        st.session_state.chat_history = []
+            full_prompt += f"User question: {query}\n"
 
+            try:
+                import google.generativeai as genai
+                model = genai.GenerativeModel("gemini-2.5-flash")
 
-    # display history
+                response = model.generate_content(full_prompt)
+
+                st.session_state.chat_history.append(("🧑 You", query))
+                st.session_state.chat_history.append(("NutriX", response.text))
+
+            except Exception as e:
+                st.error(f"Error fetching Gemini response: {e}")
+
+    # Display conversation history
     for speaker, msg in st.session_state.chat_history:
         st.markdown(f"**{speaker}:** {msg}")
+
 
 # -------------------------
 # DOCTOR CHAT
 # -------------------------
 elif choice == "Doctors":
-    st.subheader("Consult with AI Doctor")
+    st.subheader("Consult with Doctor")
 
     # Doctor type selection
     doc_type = st.radio("Choose Doctor Type:", ["Homeopathic", "Ayurvedic", "Allopathic"])
@@ -582,34 +603,20 @@ if choice == "Help & Contact":
     st.write("**Email:** support@nutrix.com")
     st.write("**Phone:** +91 12345 67890")
 
-    # Upload file (image or PDF)
-    uploaded_file = st.file_uploader(
-        "Upload an Image or PDF (Prescription / Report)",
-        type=["jpg", "png", "jpeg", "pdf"]
-    )
+    # Upload file (image only)
+    uploaded_file = st.file_uploader("Upload an Image (Prescription / Report)", type=["jpg", "png", "jpeg"])
 
-    if uploaded_file:
-        st.success(f"✅ Uploaded: {uploaded_file.name}")
+    if uploaded_file is not None:
+        # Convert the uploaded file into a PIL image
+        image = Image.open(uploaded_file)
 
-        try:
-            file_bytes = uploaded_file.read()
-            analysis_prompt = (
-                f"You are a medical AI assistant. Analyze this medical report or image named "
-                f"'{uploaded_file.name}' and provide a clear health summary, important findings, "
-                f"and actionable recommendations in simple terms for the user."
-            )
-
-            if 'gemini_health_chat' not in st.session_state:
-                st.session_state.gemini_health_chat = create_gemini_chat()
-
-            with st.spinner("Analyzing your report..."):
-                analysis = ask_gemini(st.session_state.gemini_health_chat, analysis_prompt)
-
-            if analysis:
-                st.markdown("### AI Health Report Analysis:")
-                st.write(analysis)
-            else:
-                st.warning("Could not analyze the report. Please try again.")
-
-        except Exception as e:
-            st.error(f"Error analyzing the report: {e}")
+        if st.button("Analyze Report"):
+            try:
+                model = genai.GenerativeModel("gemini-2.0-flash-exp-image-generation")
+                response = model.generate_content([
+                    "Analyze this medical report image and summarize key findings clearly for a patient.",
+                    image  # ← pass PIL image here
+                ])
+                st.write(response.text)
+            except Exception as e:
+                st.error(f"Error fetching Gemini response: {e}")
