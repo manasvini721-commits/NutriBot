@@ -4,5 +4,4 @@ pillow
 requests
 protobuf
 numpy
-PyPDF2
 
