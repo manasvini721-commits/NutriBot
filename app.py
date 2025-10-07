@@ -409,7 +409,7 @@ def ask_gemini(chat, prompt):
 if choice == "Home":
     st.markdown('<h1 class="title">NutriX: The Secret to Your Health</h1>', unsafe_allow_html=True)
     st.write("Welcome! Use the sidebar to explore Health Planner, Chat, Doctors, Diet Chat, and Help.")
-    st.image(r"C:\Users\ashok\OneDrive\Documents\NutriBot\images\health_banner.png.png", caption="Your Health, Our Priority")
+    st.image("images/health_banner.png.png", caption="Your Health, Our Priority")
 
 # -------------------------
 # HEALTH PLANNER PAGE
