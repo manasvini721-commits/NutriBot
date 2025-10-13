@@ -419,7 +419,7 @@ if choice == "Home":
     </style>
 
     <div style='position: relative;'>
-        <img src='images/logo.png' class='logo'>
+        <img src="https://raw.githubusercontent.com/manasvini721-commits/NutriBot/master/images/logo.png" class='logo'>
         <h1 style='text-align: center; font-size: 100px; color: #6a4b9c; margin-bottom: 0;'>NutriX</h1>
         <h2 style='text-align: center; color: #b595c4; margin-top: 0; font-size: 75px;'>The Secret to Your Health</h2>
     </div>
@@ -430,9 +430,9 @@ if choice == "Home":
     # Two images side-by-side at the same level
     col1, col2 = st.columns(2)
     with col1:
-        st.image(r"C:\Users\ashok\OneDrive\Documents\NutriBot\images\health_banner.png.png", width="stretch")
+        st.image('images/health_banner.png.png', width="stretch")
     with col2:
-        st.image(r"C:\Users\ashok\OneDrive\Documents\NutriBot\images\health_banner2.png", width="stretch")
+        st.image('images/health_banner2.png', width="stretch")
         # Large text below both images
     st.markdown("""
         <h1 style='text-align: center; font-size: 80px; color: black; margin-top: 40px;'>
