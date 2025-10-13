@@ -402,17 +402,43 @@ def ask_gemini(chat, prompt):
         st.error(f"Error fetching Gemini response: {e}")
         return None
 
-
-# -------------------------
-# HOME PAGE
-# -------------------------
 # -------------------------
 # HOME PAGE
 # -------------------------
 if choice == "Home":
-    st.markdown('<h1 class="title">NutriX: The Secret to Your Health</h1>', unsafe_allow_html=True)
-    st.write("Welcome! Use the sidebar to explore Health Planner, Chat, Doctors, Diet Chat, and Help.")
-    st.image(r"C:\Users\ashok\OneDrive\Documents\NutriBot\images\health_banner.png.png", caption="Your Health, Our Priority")
+    # Title + Logo
+    st.markdown(
+    """
+    <style>
+        .logo {
+            position: absolute;
+            top: 20px;
+            right: 40px;
+            width: 120px;
+        }
+    </style>
+
+    <div style='position: relative;'>
+        <img src='images/logo.png' class='logo'>
+        <h1 style='text-align: center; font-size: 100px; color: #6a4b9c; margin-bottom: 0;'>NutriX</h1>
+        <h2 style='text-align: center; color: #b595c4; margin-top: 0; font-size: 75px;'>The Secret to Your Health</h2>
+    </div>
+    """,
+    unsafe_allow_html=True
+)
+
+    # Two images side-by-side at the same level
+    col1, col2 = st.columns(2)
+    with col1:
+        st.image(r"C:\Users\ashok\OneDrive\Documents\NutriBot\images\health_banner.png.png", width="stretch")
+    with col2:
+        st.image(r"C:\Users\ashok\OneDrive\Documents\NutriBot\images\health_banner2.png", width="stretch")
+        # Large text below both images
+    st.markdown("""
+        <h1 style='text-align: center; font-size: 80px; color: black; margin-top: 40px;'>
+            YOUR HEALTH, OUR PRIORITY
+        </h1>
+        """, unsafe_allow_html=True)
 
 # -------------------------
 # HEALTH PLANNER PAGE
