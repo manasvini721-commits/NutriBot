@@ -414,7 +414,7 @@ if choice == "Home":
             position: absolute;
             top: 20px;
             right: 40px;
-            width: 120px;
+            width: 220px;
         }
     </style>
 
