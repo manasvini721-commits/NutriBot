@@ -158,7 +158,7 @@ def generate_meal_plan(preference, goal):
                 "Vegetarian": [
                     "Paneer paratha (~400 kcal)", "Cheese dosa (~380 kcal)", "Vegetable upma with ghee (~390 kcal)",
                     "Stuffed poha (~370 kcal)", "Masala dosa (~400 kcal)", "Paneer sandwich (~420 kcal)",
-                    "Idli with butter sambar (~390 kcal)", "Paratha with curd (~400 kcal)", "Vegetable omelette (~380 kcal)"
+                    "Idli with butter sambar (~390 kcal)", "Paratha with curd (~400 kcal)", "Vegetable mix (~380 kcal)"
                 ],
                 "Non-Veg": [
                     "Chicken sandwich (~420 kcal)", "Omelette with cheese (~400 kcal)", "Scrambled eggs with chicken (~430 kcal)",
