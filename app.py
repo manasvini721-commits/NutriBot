@@ -9,7 +9,7 @@ from PIL import Image
 import google.generativeai as genai
 
 # Configure Gemini with your API key
-genai.configure(api_key=os.getenv("GEMINI_API_KEY"))
+genai.configure(api_key=st.secrets["GEMINI_API_KEY"])
 def get_gemini_response(prompt):
     try:
         model = genai.GenerativeModel("gemini-2.5-flash")
