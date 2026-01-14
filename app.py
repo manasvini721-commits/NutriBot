@@ -12,7 +12,7 @@ import google.generativeai as genai
 genai.configure(api_key=st.secrets["GEMINI_API_KEY"])
 def get_gemini_response(prompt):
     try:
-        model = genai.GenerativeModel("gemini-1.5-flash")
+        model = genai.GenerativeModel("gemini-2.5-flash")
         response = model.generate_content(prompt)
         return response.text
     except Exception as e:
@@ -391,7 +391,7 @@ def display_body_image(shape_name, label):
     else:
         st.warning(f"Image for {shape_name} not found at {img_path}")
 
-def create_gemini_chat(model_name="models/gemini-1.5-flash"):
+def create_gemini_chat(model_name="models/gemini-2.5-flash"):
     return genai.GenerativeModel(model_name).start_chat(history=[])
 
 def ask_gemini(chat, prompt):
@@ -566,7 +566,7 @@ elif choice == "NutriX Chat":
 
             try:
                 import google.generativeai as genai
-                model = genai.GenerativeModel("gemini-1.5-flash")
+                model = genai.GenerativeModel("gemini-2.5-flash")
 
                 response = model.generate_content(full_prompt)
 
@@ -629,23 +629,11 @@ elif choice == "Doctors":
 if choice == "Help & Contact":
     st.subheader("📞 Need Help?")
     st.info("You can reach out for support using the options below:")
-    st.write("**Email:** support@nutrix.com")
-    st.write("**Phone:** +91 12345 67890")
+    st.write("**Email:** nutrixofficial2@gmail.com")
+    st.write("**Instagram:** manasvinikadian7 - NutriX")
+    st.write("**LinkedIn:** NutriX")
 
-    # Upload file (image only)
-    uploaded_file = st.file_uploader("Upload an Image (Prescription / Report)", type=["jpg", "png", "jpeg"])
-
-    if uploaded_file is not None:
-        # Convert the uploaded file into a PIL image
-        image = Image.open(uploaded_file)
-
-        if st.button("Analyze Report"):
-            try:
-                model = genai.GenerativeModel("gemini-1.5-flash-exp-image-generation")
-                response = model.generate_content([
-                    "Analyze this medical report image and summarize key findings clearly for a patient.",
-                    image  # ← pass PIL image here
-                ])
+   
                 st.write(response.text)
             except Exception as e:
                 st.error(f"Error fetching Gemini response: {e}")
