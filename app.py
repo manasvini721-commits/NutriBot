@@ -632,8 +632,3 @@ if choice == "Help & Contact":
     st.write("**Email:** nutrixofficial2@gmail.com")
     st.write("**Instagram:** manasvinikadian7 - NutriX")
     st.write("**LinkedIn:** NutriX")
-
-   
-                st.write(response.text)
-            except Exception as e:
-                st.error(f"Error fetching Gemini response: {e}")
