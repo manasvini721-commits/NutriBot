@@ -630,5 +630,5 @@ if choice == "Help & Contact":
     st.subheader("📞 Need Help?")
     st.info("You can reach out for support using the options below:")
     st.write("**Email:** nutrixofficial2@gmail.com")
-    st.write("**Instagram:** manasvinikadian7 - NutriX")
+    st.write("**Instagram:** nutrixindiaofficial - NutriX")
     st.write("**LinkedIn:** NutriX")
